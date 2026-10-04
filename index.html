@@ -99,7 +99,7 @@ li{margin-bottom:10px}
 .step .amt{font-size:19px;font-weight:650;font-variant-numeric:tabular-nums;color:var(--me);white-space:nowrap}
 .step .txt{font-size:15px}
 .step .txt span{display:block;color:var(--dim);font-size:13.5px;margin-top:3px}
-.pv{border-bottom:1px dashed var(--him);padding-bottom:1px}
+.pv{font-weight:650}
 .def{margin-top:26px;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--him);padding:14px 16px;max-width:58ch}
 .def p{margin:0;font-size:15px}
 .def p+p{margin-top:8px;color:var(--dim);font-size:14px}
@@ -114,7 +114,7 @@ li{margin-bottom:10px}
 
 <div class="def">
   <p><b>Цикл</b> - один повний оборот грошей: купили товар, обробили, продали, гроші повернулись на рахунок і готові до наступної закупівлі.</p>
-  <p>За твоїми словами, таких обертів у місяці щонайменше 4. Прибуток одного з них - мій, трьох інших - твій. Цифри з пунктирним підкресленням змінюються повзунками нижче.</p>
+  <p>За твоїми словами, таких обертів у місяці щонайменше 4. Прибуток одного з них - мій, трьох інших - твій. Жирні цифри в тексті змінюються повзунками нижче.</p>
 </div>
 
 <section>
@@ -277,6 +277,7 @@ li{margin-bottom:10px}
     <div class="txt"><b>Наступний крок</b>
       <span style="color:var(--ink);font-size:15px">Проклікай повзунки вище зі своїми реальними цифрами: маржа за цикл і скільки обертів виходить за місяць. Якщо цифри сходяться - сідаємо на 30 хвилин, фіксуємо суму й умови на папері, і запускаємо перший пробний місяць.</span></div>
   </div>
+  <p class="quiet" style="margin-top:16px">Перевір цю модель у кого вважаєш за потрібне - бухгалтера, знайомого чи AI. Я хочу, щоб тобі було зрозуміло все, включно з ризиками.</p>
 </section>
 
 </div>
@@ -321,8 +322,8 @@ li{margin-bottom:10px}
 
     var chain = [PRINCIPAL], c = PRINCIPAL;
     for (var i = 0; i < CYCLES; i++){ c += c * rate; chain.push(c); }
-    $('chain').textContent = 'Розрахунок при ' + Math.round(rate * 100) + '% за цикл: ' +
-      chain.map(num).join(' → ') + '.';
+    $('chain').innerHTML = 'Розрахунок при <b>' + Math.round(rate * 100) + '%</b> за цикл: ' +
+      chain.map(function(v){ return '<b>' + num(v) + '</b>'; }).join(' → ') + '.';
 
     var total = myCut + hisCut;
     var wMe = myCut / total * 100;
@@ -434,8 +435,8 @@ li{margin-bottom:10px}
     var rate = +rt.value / 100;
     PRINCIPAL = +cp.value;
     $('cpOut').textContent = Math.round(PRINCIPAL / 1000) + 'k';
-    $('cpHint').textContent = 'Щоб вписатись у стелю 1/3, твій власний обіговий капітал - від ' +
-      num(PRINCIPAL * 2) + ' грн.';
+    $('cpHint').textContent = 'Мій внесок ніколи не більший за третину грошей в обігу - так твій бізнес не тримається на чужих коштах. ' +
+      'Для ' + num(PRINCIPAL) + ' грн твоїх власних в обігу має бути від ' + num(PRINCIPAL * 2) + ' грн.';
     document.querySelectorAll('.pv').forEach(function(el){ el.textContent = num(PRINCIPAL); });
     $('mnOut').textContent = months + ' міс';
     $('rtOut').textContent = rt.value + '%';
