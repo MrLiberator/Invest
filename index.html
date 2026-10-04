@@ -99,7 +99,7 @@ li{margin-bottom:10px}
 .step .amt{font-size:19px;font-weight:650;font-variant-numeric:tabular-nums;color:var(--me);white-space:nowrap}
 .step .txt{font-size:15px}
 .step .txt span{display:block;color:var(--dim);font-size:13.5px;margin-top:3px}
-.pv{font-weight:650}
+.pv,.rv{font-weight:650}
 .def{margin-top:26px;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--him);padding:14px 16px;max-width:58ch}
 .def p{margin:0;font-size:15px}
 .def p+p{margin-top:8px;color:var(--dim);font-size:14px}
@@ -156,7 +156,7 @@ li{margin-bottom:10px}
     <input type="range" id="rt" min="5" max="25" value="10" step="1">
     <output id="rtOut">10%</output>
   </div>
-  <p class="quiet" style="margin-top:8px">Відсоток - маржа за один цикл. Постав ту, яка ближча до реальної.</p>
+  <p class="quiet" style="margin-top:8px">Відсоток - моя ставка на місяць від тіла, вона ж приблизна маржа одного циклу.</p>
 
   <div class="stats">
     <div class="stat"><div class="k">Мій накопичений дохід</div><div class="v me" id="sMe">-</div><div class="k" id="sMeSub">-</div></div>
@@ -181,7 +181,7 @@ li{margin-bottom:10px}
   <h2>Що це дає тобі</h2>
   <ul>
     <li><b>Гривні, які не треба шукати.</b> Ти продаєш у злотих, а купуєш у гривнях. Мої <span class="pv">30 000</span> грн - це гривні, які вже на місці, без пошуку й обміну, і більше товару в кожному циклі. Прибуток трьох циклів з чотирьох з цих грошей - твій додатковий дохід, без жодних вкладень з твого боку.</li>
-    <li><b>Платиш тільки з прибутку.</b> Немає фіксованого відсотка, що капає незалежно від продажів, як у банку. Немає застави. Немає прибутку - немає й виплати.</li>
+    <li><b>Без банку, застави і штрафів.</b> Жодних довідок і поручителів.</li>
     <li><b>Поганий місяць - я без виплати.</b> Мій ризик - не заробити. Я не партнер у бізнесі, тому тіло внеску захищене, але прибуток отримую тільки коли він є.</li>
     <li><b>Я вже всередині.</b> Не треба пускати стороннього в цифри й пояснювати, як усе влаштовано.</li>
   </ul>
@@ -248,8 +248,8 @@ li{margin-bottom:10px}
   <h2>Умови, як я їх бачу</h2>
   <table>
     <tr><td>Сума на старт</td><td><span class="pv">30 000</span> грн</td></tr>
-    <tr class="hl"><td>Моя частина</td><td>прибуток одного циклу</td></tr>
-    <tr><td>Як рахується</td><td>маржа за цикл × тіло в злотих, маржа - за твоїми фактичними цифрами місяця</td></tr>
+    <tr class="hl"><td>Моя частина</td><td>фіксовано <span class="rv">10%</span> на місяць від тіла (≈ прибуток одного циклу з чотирьох)</td></tr>
+    <tr><td>Ставка</td><td>узгоджуємо один раз на старті, далі незмінна до кінця строку</td></tr>
     <tr><td>Розрахунок</td><td>раз на місяць, окремим рядком у звичному підсумку в Telegram</td></tr>
     <tr><td>Облік</td><td>тіло фіксується в злотих за курсом дня передачі, виплати теж у злотих</td></tr>
     <tr><td>Вихід для мене</td><td>попередження за 60 днів, тіло повертається протягом цього строку, виплати тривають до повернення</td></tr>
@@ -432,6 +432,7 @@ li{margin-bottom:10px}
     document.querySelectorAll('.pv').forEach(function(el){ el.textContent = num(PRINCIPAL); });
     $('mnOut').textContent = months + ' міс';
     $('rtOut').textContent = rt.value + '%';
+    document.querySelectorAll('.rv').forEach(function(el){ el.textContent = rt.value + '%'; });
     renderMonth(rate);
     renderScenarios(rate);
     draw(months, rate);
